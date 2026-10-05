@@ -1,0 +1,31 @@
+.teams h1 {
+  margin: 0;
+  font-size: 32px;
+  color: #222;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.subtitle {
+  margin: 8px 0 24px;
+  color: #666;
+}
+
+.dark-button {
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}

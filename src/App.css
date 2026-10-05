@@ -1,3 +1,48 @@
+.app {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  min-height: 100svh;
+  background: #fff;
+  color: #222;
+  color-scheme: light;
+  text-align: left;
+}
+
+.app h1,
+.app h2,
+.app h3 {
+  color: #222;
+}
+
+.app main {
+  flex: 1;
+  padding: 32px;
+}
+
+@media (max-width: 700px) {
+  .app {
+    flex-direction: column;
+  }
+}
+
+.placeholder {
+  border: 2px dashed var(--border);
+  margin: 0 16px 24px;
+  padding: 48px 16px;
+}
+
+.page-arrows {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px 32px;
+}
+
+.page-arrows a {
+  color: var(--text-h);
+  text-decoration: none;
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

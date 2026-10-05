@@ -1,0 +1,58 @@
+.team-card {
+  width: 220px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  color: #222;
+}
+
+.team-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.team-card h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e5e5e5;
+}
+
+.dot.filled {
+  background: #bdbdbd;
+}
+
+.team-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.team-actions a {
+  color: #222;
+  text-decoration: none;
+}
+
+.team-actions button {
+  background: #fff;
+  color: #222;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}

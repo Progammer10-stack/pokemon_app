@@ -1,0 +1,41 @@
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  padding: 16px;
+  background: #ececec;
+  box-sizing: border-box;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 8px 10px;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #cfcfcf;
+}
+
+.nav-link {
+  display: block;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  background: #fff;
+  border-radius: 8px;
+  color: #222;
+  text-decoration: none;
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    width: auto;
+  }
+}
