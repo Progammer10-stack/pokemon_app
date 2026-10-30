@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Navigation from './components/layout/Navigation.jsx'
 import { TEAM_SIZE } from './constants.js'
-import Teams from './pages/Teams.jsx'
-import TeamDetail from './pages/TeamDetail.jsx'
+import Pokemons from './pages/pokemons/Pokemons.jsx'
+import PokemonDetail from './pages/pokemon/PokemonDetail.jsx'
+import Teams from './pages/teams/Teams.jsx'
+import TeamDetail from './pages/teams/TeamDetail.jsx'
 import './App.css'
 
 function App() {
@@ -15,39 +17,81 @@ function App() {
   const [nextId, setNextId] = useState(4)
 
   function addTeam() {
-    setTeams([...teams, { id: nextId, name: 'Team ' + nextId, members: [] }])
+    const newTeam = { id: nextId, name: 'Team ' + nextId, members: [] }
+    setTeams(teams.concat(newTeam))
     setNextId(nextId + 1)
   }
 
   function removeTeam(id) {
-    setTeams(teams.filter((team) => team.id !== id))
+    const newTeams = []
+
+    for (let i = 0; i < teams.length; i++) {
+      if (teams[i].id !== id) {
+        newTeams.push(teams[i])
+      }
+    }
+
+    setTeams(newTeams)
   }
 
   function addPokemon(teamId, pokemon) {
-    const member = {
-      id: pokemon.id,
-      name: pokemon.name,
-      image: pokemon.sprites.front_default,
-      types: pokemon.types.map((type) => type.type.name),
+    const newTeams = []
+
+    for (let i = 0; i < teams.length; i++) {
+      const team = teams[i]
+
+      if (team.id !== teamId || team.members.length >= TEAM_SIZE) {
+        newTeams.push(team)
+      } else {
+        let alreadyAdded = false
+
+        for (let j = 0; j < team.members.length; j++) {
+          if (team.members[j].id === pokemon.id) {
+            alreadyAdded = true
+          }
+        }
+
+        if (alreadyAdded) {
+          newTeams.push(team)
+        } else {
+          newTeams.push({
+            id: team.id,
+            name: team.name,
+            members: team.members.concat(pokemon),
+          })
+        }
+      }
     }
 
-    setTeams(teams.map((team) => {
-      if (team.id !== teamId) return team
-      if (team.members.length >= TEAM_SIZE) return team
-      if (team.members.some((item) => item.id === member.id)) return team
-
-      return { ...team, members: [...team.members, member] }
-    }))
+    setTeams(newTeams)
   }
 
   function removePokemon(teamId, pokemonId) {
-    setTeams(teams.map((team) => {
-      if (team.id !== teamId) return team
-      return {
-        ...team,
-        members: team.members.filter((item) => item.id !== pokemonId),
+    const newTeams = []
+
+    for (let i = 0; i < teams.length; i++) {
+      const team = teams[i]
+
+      if (team.id !== teamId) {
+        newTeams.push(team)
+      } else {
+        const members = []
+
+        for (let j = 0; j < team.members.length; j++) {
+          if (team.members[j].id !== pokemonId) {
+            members.push(team.members[j])
+          }
+        }
+
+        newTeams.push({
+          id: team.id,
+          name: team.name,
+          members: members,
+        })
       }
-    }))
+    }
+
+    setTeams(newTeams)
   }
 
   return (
@@ -55,8 +99,10 @@ function App() {
       <Navigation />
       <main>
         <Routes>
+          <Route path="/" element={<Pokemons />} />
+          <Route path="/pokemon/:id" element={<PokemonDetail />} />
           <Route
-            path="/"
+            path="/teams"
             element={<Teams teams={teams} onAdd={addTeam} onRemove={removeTeam} />}
           />
           <Route

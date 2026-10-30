@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getPokemons } from '../api.js'
-import AddSlot from '../components/team/AddSlot.jsx'
-import PokemonCard from '../components/pokemon/PokemonCard.jsx'
-import { TEAM_SIZE } from '../constants.js'
+import { getPokemons } from '../../api.js'
+import AddSlot from '../../components/team/AddSlot.jsx'
+import PokemonCard from '../../components/pokemon/PokemonCard.jsx'
+import { TEAM_SIZE } from '../../constants.js'
 import './TeamDetail.css'
 
 function TeamDetail({ teams, onDelete, onAdd, onRemove }) {
   const { id } = useParams()
   const navigate = useNavigate()
-  const team = teams.find((item) => item.id === Number(id))
   const [pokemons, setPokemons] = useState([])
 
   useEffect(() => {
@@ -17,10 +16,10 @@ function TeamDetail({ teams, onDelete, onAdd, onRemove }) {
       const data = await getPokemons()
       const details = []
 
-      for (const pokemon of data.results) {
-        const res = await fetch(pokemon.url)
-        const detail = await res.json()
-        details.push(detail)
+      for (let i = 0; i < data.results.length; i++) {
+        const res = await fetch(data.results[i].url)
+        const pokemon = await res.json()
+        details.push(pokemon)
       }
 
       setPokemons(details)
@@ -29,11 +28,18 @@ function TeamDetail({ teams, onDelete, onAdd, onRemove }) {
     loadPokemons()
   }, [])
 
+  let team = null
+  for (let i = 0; i < teams.length; i++) {
+    if (teams[i].id === Number(id)) {
+      team = teams[i]
+    }
+  }
+
   if (!team) {
     return (
       <section className="team-detail">
         <p>Dit team bestaat niet.</p>
-        <Link to="/">← Back to teams</Link>
+        <Link to="/teams">← Back to teams</Link>
       </section>
     )
   }
@@ -45,12 +51,12 @@ function TeamDetail({ teams, onDelete, onAdd, onRemove }) {
 
   function deleteTeam() {
     onDelete(team.id)
-    navigate('/')
+    navigate('/teams')
   }
 
   return (
     <section className="team-detail">
-      <Link to="/" className="back-link">← Back to teams</Link>
+      <Link to="/teams" className="back-link">← Back to teams</Link>
 
       <h1>Team detail</h1>
       <div className="title-row">
@@ -63,9 +69,7 @@ function TeamDetail({ teams, onDelete, onAdd, onRemove }) {
         {team.members.map((pokemon) => (
           <PokemonCard
             key={pokemon.id}
-            name={pokemon.name}
-            image={pokemon.image}
-            types={pokemon.types}
+            pokemon={pokemon}
             onRemove={() => onRemove(team.id, pokemon.id)}
           />
         ))}
@@ -80,9 +84,7 @@ function TeamDetail({ teams, onDelete, onAdd, onRemove }) {
         {pokemons.map((pokemon) => (
           <PokemonCard
             key={pokemon.id}
-            name={pokemon.name}
-            image={pokemon.sprites.front_default}
-            types={pokemon.types.map((type) => type.type.name)}
+            pokemon={pokemon}
             onAdd={() => onAdd(team.id, pokemon)}
           />
         ))}

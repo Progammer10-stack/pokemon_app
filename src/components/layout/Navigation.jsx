@@ -9,8 +9,8 @@ function Navigation() {
         Team Manager
       </div>
       <nav>
-        <Link to="/" className="nav-link">Teams</Link>
-        <span className="nav-link">Favorites</span>
+        <Link to="/" className="nav-link">Pokemons</Link>
+        <Link to="/teams" className="nav-link">Teams</Link>
       </nav>
     </aside>
   )

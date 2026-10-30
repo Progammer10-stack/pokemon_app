@@ -1,0 +1,35 @@
+.pokemon-detail h1 {
+  margin: 12px 0;
+  font-size: 32px;
+  color: #222;
+  text-transform: capitalize;
+}
+
+.pokemon-detail .back-link {
+  color: #222;
+  text-decoration: none;
+}
+
+.pokemon-image {
+  width: 160px;
+  height: 160px;
+  margin-bottom: 12px;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pokemon-image img {
+  width: 140px;
+  height: 140px;
+}
+
+.pokemon-detail p {
+  margin: 0 0 8px;
+  color: #666;
+}
+
+.pokemon-detail .types {
+  text-transform: capitalize;
+}

@@ -1,4 +1,4 @@
-import TeamCard from '../components/team/TeamCard.jsx'
+import TeamCard from '../../components/team/TeamCard.jsx'
 import './Teams.css'
 
 function Teams({ teams, onAdd, onRemove }) {
