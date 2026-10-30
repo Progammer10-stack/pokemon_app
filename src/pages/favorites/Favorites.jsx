@@ -37,9 +37,20 @@ function pokemonHasType(pokemon, typeName) {
   return false
 }
 
+function idIsSelected(selectedIds, pokemonId) {
+  for (let i = 0; i < selectedIds.length; i++) {
+    if (selectedIds[i] === pokemonId) {
+      return true
+    }
+  }
+
+  return false
+}
+
 function Favorites({ favorites }) {
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('all')
+  const [selectedIds, setSelectedIds] = useState([])
 
   const typeNames = typeNamesInFavorites(favorites)
 
@@ -76,6 +87,17 @@ function Favorites({ favorites }) {
 
   function showRecent() {
     setFilter('recent')
+  }
+
+  function toggleSelected(pokemonId) {
+    if (idIsSelected(selectedIds, pokemonId)) {
+      const nextIds = selectedIds.filter(function (id) {
+        return id !== pokemonId
+      })
+      setSelectedIds(nextIds)
+    } else {
+      setSelectedIds(selectedIds.concat(pokemonId))
+    }
   }
 
   let allClass = 'filter-button'
@@ -130,10 +152,16 @@ function Favorites({ favorites }) {
 
       <div className="card-grid">
         {visible.map(function (pokemon) {
+          function selectPokemon() {
+            toggleSelected(pokemon.id)
+          }
+
           return (
             <PokemonCard
               key={pokemon.id}
               pokemon={pokemon}
+              onSelect={selectPokemon}
+              isSelected={idIsSelected(selectedIds, pokemon.id)}
             />
           )
         })}

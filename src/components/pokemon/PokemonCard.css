@@ -1,4 +1,5 @@
 .poke-card {
+  position: relative;
   width: 160px;
   padding: 12px;
   border: 1px solid #ccc;
@@ -48,4 +49,20 @@
   border-radius: 6px;
   padding: 6px 10px;
   cursor: pointer;
+}
+
+.poke-card .select-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #cfcfcf;
+}
+
+.poke-card .select-dot.filled {
+  background: #666;
 }

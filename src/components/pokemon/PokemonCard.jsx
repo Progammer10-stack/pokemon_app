@@ -14,7 +14,7 @@ function typeText(types) {
   return text
 }
 
-function PokemonCard({ pokemon, onAdd, onRemove, onFavorite, isFavorite }) {
+function PokemonCard({ pokemon, onAdd, onRemove, onFavorite, isFavorite, onSelect, isSelected }) {
   let addButton = null
   if (onAdd) {
     addButton = (
@@ -41,8 +41,21 @@ function PokemonCard({ pokemon, onAdd, onRemove, onFavorite, isFavorite }) {
     )
   }
 
+  let selectDot = null
+  if (onSelect) {
+    let dotClass = 'select-dot'
+    if (isSelected) {
+      dotClass = 'select-dot filled'
+    }
+
+    selectDot = (
+      <button type="button" className={dotClass} onClick={onSelect} />
+    )
+  }
+
   return (
     <article className="poke-card">
+      {selectDot}
       <Link to={'/pokemon/' + pokemon.id} className="poke-link">
         <div className="poke-image">
           <img src={pokemon.sprites.front_default} alt={pokemon.name} />
