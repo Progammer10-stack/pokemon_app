@@ -8,6 +8,16 @@ import Teams from './pages/teams/Teams.jsx'
 import TeamDetail from './pages/teams/TeamDetail.jsx'
 import './App.css'
 
+function memberIsInTeam(team, pokemonId) {
+  for (let i = 0; i < team.members.length; i++) {
+    if (team.members[i].id === pokemonId) {
+      return true
+    }
+  }
+
+  return false
+}
+
 function App() {
   const [teams, setTeams] = useState([
     { id: 1, name: 'Team 1', members: [] },
@@ -23,73 +33,55 @@ function App() {
   }
 
   function removeTeam(id) {
-    const newTeams = []
-
-    for (let i = 0; i < teams.length; i++) {
-      if (teams[i].id !== id) {
-        newTeams.push(teams[i])
-      }
-    }
+    const newTeams = teams.filter(function (team) {
+      return team.id !== id
+    })
 
     setTeams(newTeams)
   }
 
   function addPokemon(teamId, pokemon) {
-    const newTeams = []
-
-    for (let i = 0; i < teams.length; i++) {
-      const team = teams[i]
-
-      if (team.id !== teamId || team.members.length >= TEAM_SIZE) {
-        newTeams.push(team)
-      } else {
-        let alreadyAdded = false
-
-        for (let j = 0; j < team.members.length; j++) {
-          if (team.members[j].id === pokemon.id) {
-            alreadyAdded = true
-          }
-        }
-
-        if (alreadyAdded) {
-          newTeams.push(team)
-        } else {
-          newTeams.push({
-            id: team.id,
-            name: team.name,
-            members: team.members.concat(pokemon),
-          })
-        }
+    const newTeams = teams.map(function (team) {
+      if (team.id !== teamId) {
+        return team
       }
-    }
+
+      if (team.members.length >= TEAM_SIZE) {
+        return team
+      }
+
+      if (memberIsInTeam(team, pokemon.id)) {
+        return team
+      }
+
+      const members = team.members.concat(pokemon)
+
+      return {
+        id: team.id,
+        name: team.name,
+        members: members,
+      }
+    })
 
     setTeams(newTeams)
   }
 
   function removePokemon(teamId, pokemonId) {
-    const newTeams = []
-
-    for (let i = 0; i < teams.length; i++) {
-      const team = teams[i]
-
+    const newTeams = teams.map(function (team) {
       if (team.id !== teamId) {
-        newTeams.push(team)
-      } else {
-        const members = []
-
-        for (let j = 0; j < team.members.length; j++) {
-          if (team.members[j].id !== pokemonId) {
-            members.push(team.members[j])
-          }
-        }
-
-        newTeams.push({
-          id: team.id,
-          name: team.name,
-          members: members,
-        })
+        return team
       }
-    }
+
+      const members = team.members.filter(function (pokemon) {
+        return pokemon.id !== pokemonId
+      })
+
+      return {
+        id: team.id,
+        name: team.name,
+        members: members,
+      }
+    })
 
     setTeams(newTeams)
   }

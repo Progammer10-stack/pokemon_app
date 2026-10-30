@@ -9,15 +9,7 @@ function Pokemons() {
   useEffect(() => {
     async function loadPokemons() {
       const data = await getPokemons()
-      const details = []
-
-      for (let i = 0; i < data.results.length; i++) {
-        const res = await fetch(data.results[i].url)
-        const pokemon = await res.json()
-        details.push(pokemon)
-      }
-
-      setPokemons(details)
+      setPokemons(data)
     }
 
     loadPokemons()
@@ -29,9 +21,9 @@ function Pokemons() {
       <p className="subtitle">Klik op een pokemon voor de details</p>
 
       <div className="card-grid">
-        {pokemons.map((pokemon) => (
-          <PokemonCard key={pokemon.id} pokemon={pokemon} />
-        ))}
+        {pokemons.map(function (pokemon) {
+          return <PokemonCard key={pokemon.id} pokemon={pokemon} />
+        })}
       </div>
     </section>
   )

@@ -14,15 +14,7 @@ function TeamDetail({ teams, onDelete, onAdd, onRemove }) {
   useEffect(() => {
     async function loadPokemons() {
       const data = await getPokemons()
-      const details = []
-
-      for (let i = 0; i < data.results.length; i++) {
-        const res = await fetch(data.results[i].url)
-        const pokemon = await res.json()
-        details.push(pokemon)
-      }
-
-      setPokemons(details)
+      setPokemons(data)
     }
 
     loadPokemons()
@@ -66,28 +58,40 @@ function TeamDetail({ teams, onDelete, onAdd, onRemove }) {
 
       <h2>Roster</h2>
       <div className="card-grid">
-        {team.members.map((pokemon) => (
-          <PokemonCard
-            key={pokemon.id}
-            pokemon={pokemon}
-            onRemove={() => onRemove(team.id, pokemon.id)}
-          />
-        ))}
+        {team.members.map(function (pokemon) {
+          function removeThisPokemon() {
+            onRemove(team.id, pokemon.id)
+          }
 
-        {emptySlots.map((slot) => (
-          <AddSlot key={slot} />
-        ))}
+          return (
+            <PokemonCard
+              key={pokemon.id}
+              pokemon={pokemon}
+              onRemove={removeThisPokemon}
+            />
+          )
+        })}
+
+        {emptySlots.map(function (slot) {
+          return <AddSlot key={slot} />
+        })}
       </div>
 
       <h2>Browse & add from catalog</h2>
       <div className="card-grid">
-        {pokemons.map((pokemon) => (
-          <PokemonCard
-            key={pokemon.id}
-            pokemon={pokemon}
-            onAdd={() => onAdd(team.id, pokemon)}
-          />
-        ))}
+        {pokemons.map(function (pokemon) {
+          function addThisPokemon() {
+            onAdd(team.id, pokemon)
+          }
+
+          return (
+            <PokemonCard
+              key={pokemon.id}
+              pokemon={pokemon}
+              onAdd={addThisPokemon}
+            />
+          )
+        })}
       </div>
     </section>
   )

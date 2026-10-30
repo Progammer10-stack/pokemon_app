@@ -8,6 +8,10 @@ function TeamCard({ team, onRemove }) {
     slots.push(i)
   }
 
+  function removeThisTeam() {
+    onRemove(team.id)
+  }
+
   return (
     <article className="team-card">
       <div className="team-card-top">
@@ -15,16 +19,18 @@ function TeamCard({ team, onRemove }) {
         <span>{team.members.length} / {TEAM_SIZE}</span>
       </div>
       <div className="dots">
-        {slots.map((index) => (
-          <span
-            key={index}
-            className={index < team.members.length ? 'dot filled' : 'dot'}
-          />
-        ))}
+        {slots.map(function (index) {
+          let className = 'dot'
+          if (index < team.members.length) {
+            className = 'dot filled'
+          }
+
+          return <span key={index} className={className} />
+        })}
       </div>
       <div className="team-actions">
         <Link to={'/team/' + team.id}>Open</Link>
-        <button type="button" onClick={() => onRemove(team.id)}>Remove</button>
+        <button type="button" onClick={removeThisTeam}>Remove</button>
       </div>
     </article>
   )

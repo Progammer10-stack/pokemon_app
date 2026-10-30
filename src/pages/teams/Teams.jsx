@@ -11,9 +11,9 @@ function Teams({ teams, onAdd, onRemove }) {
       <p className="subtitle">Create and manage teams</p>
 
       <div className="team-grid">
-        {teams.map((team) => (
-          <TeamCard key={team.id} team={team} onRemove={onRemove} />
-        ))}
+        {teams.map(function (team) {
+          return <TeamCard key={team.id} team={team} onRemove={onRemove} />
+        })}
       </div>
     </section>
   )
