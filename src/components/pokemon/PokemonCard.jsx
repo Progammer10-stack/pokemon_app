@@ -14,7 +14,7 @@ function typeText(types) {
   return text
 }
 
-function PokemonCard({ pokemon, onAdd, onRemove }) {
+function PokemonCard({ pokemon, onAdd, onRemove, onFavorite, isFavorite }) {
   let addButton = null
   if (onAdd) {
     addButton = (
@@ -29,6 +29,18 @@ function PokemonCard({ pokemon, onAdd, onRemove }) {
     )
   }
 
+  let favoriteButton = null
+  if (onFavorite) {
+    let label = 'Save'
+    if (isFavorite) {
+      label = 'Saved'
+    }
+
+    favoriteButton = (
+      <button type="button" onClick={onFavorite}>{label}</button>
+    )
+  }
+
   return (
     <article className="poke-card">
       <Link to={'/pokemon/' + pokemon.id} className="poke-link">
@@ -38,6 +50,7 @@ function PokemonCard({ pokemon, onAdd, onRemove }) {
         <h3>{pokemon.name}</h3>
         <p>{typeText(pokemon.types)}</p>
       </Link>
+      {favoriteButton}
       {addButton}
       {removeButton}
     </article>
