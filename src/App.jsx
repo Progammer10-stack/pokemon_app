@@ -68,6 +68,10 @@ function App() {
     setTeams(newTeams)
   }
 
+  function addFavorite(pokemon) {
+    setFavorites(favorites.concat(pokemon))
+  }
+
   function removePokemon(teamId, pokemonId) {
     const newTeams = teams.map(function (team) {
       if (team.id !== teamId) {
