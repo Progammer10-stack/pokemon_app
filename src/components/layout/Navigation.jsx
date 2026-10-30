@@ -11,6 +11,7 @@ function Navigation() {
       <nav>
         <Link to="/" className="nav-link">Pokemons</Link>
         <Link to="/teams" className="nav-link">Teams</Link>
+        <Link to="/favorites" className="nav-link">Favorites</Link>
       </nav>
     </aside>
   )
