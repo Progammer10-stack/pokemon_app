@@ -43,7 +43,15 @@ function Favorites({ favorites }) {
 
   const typeNames = typeNamesInFavorites(favorites)
 
-  const visible = favorites.filter(function (pokemon) {
+  let list = favorites
+  if (filter === 'recent') {
+    list = []
+    for (let i = favorites.length - 1; i >= 0; i--) {
+      list.push(favorites[i])
+    }
+  }
+
+  const visible = list.filter(function (pokemon) {
     const name = pokemon.name.toLowerCase()
     const word = search.toLowerCase()
 
@@ -51,7 +59,7 @@ function Favorites({ favorites }) {
       return false
     }
 
-    if (filter === 'all') {
+    if (filter === 'all' || filter === 'recent') {
       return true
     }
 
@@ -66,9 +74,18 @@ function Favorites({ favorites }) {
     setFilter('all')
   }
 
+  function showRecent() {
+    setFilter('recent')
+  }
+
   let allClass = 'filter-button'
   if (filter === 'all') {
     allClass = 'filter-button active'
+  }
+
+  let recentClass = 'filter-button'
+  if (filter === 'recent') {
+    recentClass = 'filter-button active'
   }
 
   return (
@@ -107,6 +124,8 @@ function Favorites({ favorites }) {
             </button>
           )
         })}
+
+        <button type="button" className={recentClass} onClick={showRecent}>Recent</button>
       </div>
 
       <div className="card-grid">
