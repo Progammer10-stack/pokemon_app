@@ -150,6 +150,10 @@ function Favorites({ favorites }) {
         <button type="button" className={recentClass} onClick={showRecent}>Recent</button>
       </div>
 
+      <div className="selected-bar">
+        <span>Selected items ({selectedIds.length})</span>
+      </div>
+
       <div className="card-grid">
         {visible.map(function (pokemon) {
           function selectPokemon() {
