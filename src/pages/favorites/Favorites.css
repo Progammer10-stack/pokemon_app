@@ -69,3 +69,12 @@
   color: #222;
 }
 
+.selected-bar button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #222;
+  font: inherit;
+  cursor: pointer;
+}
+

@@ -100,6 +100,10 @@ function Favorites({ favorites }) {
     }
   }
 
+  function clearSelected() {
+    setSelectedIds([])
+  }
+
   let allClass = 'filter-button'
   if (filter === 'all') {
     allClass = 'filter-button active'
@@ -152,6 +156,7 @@ function Favorites({ favorites }) {
 
       <div className="selected-bar">
         <span>Selected items ({selectedIds.length})</span>
+        <button type="button" onClick={clearSelected}>Clear</button>
       </div>
 
       <div className="card-grid">
