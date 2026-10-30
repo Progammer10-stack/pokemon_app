@@ -15,7 +15,17 @@ function typeText(types) {
   return text
 }
 
-function PokemonDetail() {
+function isSaved(favorites, pokemonId) {
+  for (let i = 0; i < favorites.length; i++) {
+    if (favorites[i].id === pokemonId) {
+      return true
+    }
+  }
+
+  return false
+}
+
+function PokemonDetail({ favorites, onAddFavorite, onRemoveFavorite }) {
   const { id } = useParams()
   const [pokemon, setPokemon] = useState(null)
 
@@ -37,6 +47,21 @@ function PokemonDetail() {
     )
   }
 
+  const saved = isSaved(favorites, pokemon.id)
+
+  function toggleFavorite() {
+    if (saved) {
+      onRemoveFavorite(pokemon.id)
+    } else {
+      onAddFavorite(pokemon)
+    }
+  }
+
+  let saveLabel = 'Save'
+  if (saved) {
+    saveLabel = 'Saved'
+  }
+
   return (
     <section className="pokemon-detail">
       <Link to="/" className="back-link">← Alle pokemons</Link>
@@ -48,6 +73,7 @@ function PokemonDetail() {
       <p className="types">{typeText(pokemon.types)}</p>
       <p>Hoogte: {pokemon.height / 10} m</p>
       <p>Gewicht: {pokemon.weight / 10} kg</p>
+      <button type="button" onClick={toggleFavorite}>{saveLabel}</button>
     </section>
   )
 }
