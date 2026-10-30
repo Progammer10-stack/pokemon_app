@@ -1,8 +1,20 @@
 import { useState } from 'react'
+import PokemonCard from '../../components/pokemon/PokemonCard.jsx'
 import './Favorites.css'
 
-function Favorites() {
+function Favorites({ favorites }) {
   const [search, setSearch] = useState('')
+
+  const visible = favorites.filter(function (pokemon) {
+    const name = pokemon.name.toLowerCase()
+    const word = search.toLowerCase()
+
+    if (name.indexOf(word) === -1) {
+      return false
+    }
+
+    return true
+  })
 
   function updateSearch(event) {
     setSearch(event.target.value)
@@ -25,6 +37,17 @@ function Favorites() {
             onChange={updateSearch}
           />
         </label>
+      </div>
+
+      <div className="card-grid">
+        {visible.map(function (pokemon) {
+          return (
+            <PokemonCard
+              key={pokemon.id}
+              pokemon={pokemon}
+            />
+          )
+        })}
       </div>
     </section>
   )
