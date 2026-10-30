@@ -9,3 +9,37 @@
   color: #666;
 }
 
+.search-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #fff;
+}
+
+.search-mark {
+  width: 14px;
+  height: 14px;
+  background: #ccc;
+  flex-shrink: 0;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  font: inherit;
+  width: 180px;
+  color: #222;
+  background: transparent;
+}
+
