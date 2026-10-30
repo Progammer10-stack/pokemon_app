@@ -33,3 +33,13 @@
 .pokemon-detail .types {
   text-transform: capitalize;
 }
+
+.pokemon-detail button {
+  margin-top: 8px;
+  background: #fff;
+  color: #222;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
