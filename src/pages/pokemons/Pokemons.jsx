@@ -3,7 +3,17 @@ import { getPokemons } from '../../api.js'
 import PokemonCard from '../../components/pokemon/PokemonCard.jsx'
 import './Pokemons.css'
 
-function Pokemons() {
+function isSaved(favorites, pokemonId) {
+  for (let i = 0; i < favorites.length; i++) {
+    if (favorites[i].id === pokemonId) {
+      return true
+    }
+  }
+
+  return false
+}
+
+function Pokemons({ favorites, onAddFavorite, onRemoveFavorite }) {
   const [pokemons, setPokemons] = useState([])
 
   useEffect(() => {
@@ -22,7 +32,24 @@ function Pokemons() {
 
       <div className="card-grid">
         {pokemons.map(function (pokemon) {
-          return <PokemonCard key={pokemon.id} pokemon={pokemon} />
+          const saved = isSaved(favorites, pokemon.id)
+
+          function toggleFavorite() {
+            if (saved) {
+              onRemoveFavorite(pokemon.id)
+            } else {
+              onAddFavorite(pokemon)
+            }
+          }
+
+          return (
+            <PokemonCard
+              key={pokemon.id}
+              pokemon={pokemon}
+              onFavorite={toggleFavorite}
+              isFavorite={saved}
+            />
+          )
         })}
       </div>
     </section>

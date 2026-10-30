@@ -105,7 +105,16 @@ function App() {
       <Navigation />
       <main>
         <Routes>
-          <Route path="/" element={<Pokemons />} />
+          <Route
+            path="/"
+            element={
+              <Pokemons
+                favorites={favorites}
+                onAddFavorite={addFavorite}
+                onRemoveFavorite={removeFavorite}
+              />
+            }
+          />
           <Route path="/pokemon/:id" element={<PokemonDetail />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route
