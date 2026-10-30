@@ -27,6 +27,16 @@ function typeNamesInFavorites(favorites) {
   return typeNames
 }
 
+function pokemonHasType(pokemon, typeName) {
+  for (let i = 0; i < pokemon.types.length; i++) {
+    if (pokemon.types[i].type.name === typeName) {
+      return true
+    }
+  }
+
+  return false
+}
+
 function Favorites({ favorites }) {
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('all')
@@ -41,7 +51,11 @@ function Favorites({ favorites }) {
       return false
     }
 
-    return true
+    if (filter === 'all') {
+      return true
+    }
+
+    return pokemonHasType(pokemon, filter)
   })
 
   function updateSearch(event) {
