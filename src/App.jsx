@@ -69,6 +69,12 @@ function App() {
   }
 
   function addFavorite(pokemon) {
+    for (let i = 0; i < favorites.length; i++) {
+      if (favorites[i].id === pokemon.id) {
+        return
+      }
+    }
+
     setFavorites(favorites.concat(pokemon))
   }
 
