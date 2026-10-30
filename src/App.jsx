@@ -26,6 +26,7 @@ function App() {
     { id: 3, name: 'Team 3', members: [] },
   ])
   const [nextId, setNextId] = useState(4)
+  const [favorites, setFavorites] = useState([])
 
   function addTeam() {
     const newTeam = { id: nextId, name: 'Team ' + nextId, members: [] }
