@@ -4,6 +4,7 @@ import './Favorites.css'
 
 function Favorites({ favorites }) {
   const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState('all')
 
   const visible = favorites.filter(function (pokemon) {
     const name = pokemon.name.toLowerCase()
@@ -18,6 +19,15 @@ function Favorites({ favorites }) {
 
   function updateSearch(event) {
     setSearch(event.target.value)
+  }
+
+  function showAll() {
+    setFilter('all')
+  }
+
+  let allClass = 'filter-button'
+  if (filter === 'all') {
+    allClass = 'filter-button active'
   }
 
   return (
@@ -37,6 +47,8 @@ function Favorites({ favorites }) {
             onChange={updateSearch}
           />
         </label>
+
+        <button type="button" className={allClass} onClick={showAll}>All</button>
       </div>
 
       <div className="card-grid">

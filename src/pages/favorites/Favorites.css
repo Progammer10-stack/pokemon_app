@@ -43,3 +43,17 @@
   background: transparent;
 }
 
+.filter-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #222;
+  font: inherit;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.filter-button.active {
+  font-weight: 700;
+}
+
