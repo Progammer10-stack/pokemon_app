@@ -4,6 +4,7 @@ import Navigation from './components/layout/Navigation.jsx'
 import { TEAM_SIZE } from './constants.js'
 import Pokemons from './pages/pokemons/Pokemons.jsx'
 import PokemonDetail from './pages/pokemon/PokemonDetail.jsx'
+import Favorites from './pages/favorites/Favorites.jsx'
 import Teams from './pages/teams/Teams.jsx'
 import TeamDetail from './pages/teams/TeamDetail.jsx'
 import './App.css'
@@ -93,6 +94,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Pokemons />} />
           <Route path="/pokemon/:id" element={<PokemonDetail />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route
             path="/teams"
             element={<Teams teams={teams} onAdd={addTeam} onRemove={removeTeam} />}
