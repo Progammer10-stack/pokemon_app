@@ -86,6 +86,26 @@ function App() {
     setFavorites(newFavorites)
   }
 
+  function removeSelectedFavorites(ids) {
+    const newFavorites = favorites.filter(function (pokemon) {
+      let selected = false
+
+      for (let i = 0; i < ids.length; i++) {
+        if (ids[i] === pokemon.id) {
+          selected = true
+        }
+      }
+
+      if (selected) {
+        return false
+      }
+
+      return true
+    })
+
+    setFavorites(newFavorites)
+  }
+
   function removePokemon(teamId, pokemonId) {
     const newTeams = teams.map(function (team) {
       if (team.id !== teamId) {
@@ -131,7 +151,15 @@ function App() {
               />
             }
           />
-          <Route path="/favorites" element={<Favorites />} />
+          <Route
+            path="/favorites"
+            element={
+              <Favorites
+                favorites={favorites}
+                onRemoveSelected={removeSelectedFavorites}
+              />
+            }
+          />
           <Route
             path="/teams"
             element={<Teams teams={teams} onAdd={addTeam} onRemove={removeTeam} />}

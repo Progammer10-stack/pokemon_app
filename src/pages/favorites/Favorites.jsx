@@ -47,7 +47,7 @@ function idIsSelected(selectedIds, pokemonId) {
   return false
 }
 
-function Favorites({ favorites }) {
+function Favorites({ favorites, onRemoveSelected }) {
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('all')
   const [selectedIds, setSelectedIds] = useState([])
@@ -104,6 +104,11 @@ function Favorites({ favorites }) {
     setSelectedIds([])
   }
 
+  function removeSelected() {
+    onRemoveSelected(selectedIds)
+    setSelectedIds([])
+  }
+
   let allClass = 'filter-button'
   if (filter === 'all') {
     allClass = 'filter-button active'
@@ -118,6 +123,7 @@ function Favorites({ favorites }) {
     <section className="favorites">
       <div className="title-row">
         <h1>Favorites</h1>
+        <button className="dark-button" type="button" onClick={removeSelected}>Remove</button>
       </div>
       <p className="subtitle">Saved Pokémon</p>
 
